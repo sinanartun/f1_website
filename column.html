@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<style>
+  #container {
+    height: 800px;
+    width: 1000px;
+  }
+
+  .highcharts-figure,
+  .highcharts-data-table table {
+    min-width: 310px;
+    max-width: 1200px;
+    margin: 1em auto;
+  }
+
+  .highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+  }
+
+  .highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+  }
+
+  .highcharts-data-table td,
+  .highcharts-data-table th,
+  .highcharts-data-table caption {
+    padding: 0.5em;
+  }
+
+  .highcharts-data-table thead tr,
+  .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+  }
+
+  .highcharts-data-table tr:hover {
+    background: #f1f7ff;
+  }
+
+</style>
+<body>
+
+
+
+<figure class="highcharts-figure">
+  <div id="container"></div>
+  <p class="highcharts-description">
+    Chart showing grouped and stacked 3D columns. These features are
+    available both for 2D and 3D column charts.
+  </p>
+</figure>
+</body>
+<script>
+
+  const run = function (driver_name) {
+
+    $.ajax({
+      url: 'https://91he7nbcad.execute-api.eu-central-1.amazonaws.com/default/f1?action=positive_negative&driver_name=max_verstappen',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      type: "GET",
+      dataType: "json",
+
+      success: function (result) {
+        // console.log(result);
+        manuplate(result);
+      },
+      error: function () {
+        console.log("error");
+      }
+    });
+
+
+
+  };
+
+  const manuplate = function (result) {
+    let ret = [];
+    let cats = [];
+
+    for (let i= 0;i<result.length;i++) {
+         
+
+      ret.push({"name":result[i].f1_driver})
+      cats.push(result[i].f1_driver)
+    }
+
+
+    for (let i= 0;i<ret.length;i++) {
+      let ndata = []
+
+      for (let ii= 0;ii<result.length;ii++) {
+
+        if (ret[i].name === result[ii].f1_driver) {
+          ndata.push(parseInt(result[ii].sum_positive));
+        } else {
+          ndata.push(0);
+        }
+
+
+
+      }
+
+      ret[i].data = ndata;
+
+    }
+    console.log(ret);
+    render(ret,cats)
+
+
+
+  };
+
+  const render = function (data,cats) {
+    Highcharts.chart('container', {
+      chart: {
+        type: 'column',
+        options3d: {
+          enabled: true,
+          alpha: 15,
+          beta: 15,
+          viewDistance: 25,
+          depth: 40
+        }
+      },
+
+      title: {
+        text: 'Total fruit consumption, grouped by gender'
+      },
+
+      xAxis: {
+        categories: cats,
+        labels: {
+          skew3d: true,
+          style: {
+            fontSize: '16px'
+          }
+        }
+      },
+
+      yAxis: {
+        allowDecimals: false,
+        min: 0,
+        title: {
+          text: 'Number of fruits',
+          skew3d: true
+        }
+      },
+
+      tooltip: {
+        headerFormat: '<b>{point.key}</b><br>',
+        pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+      },
+
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          depth: 40
+        }
+      },
+
+      series: data
+    });
+  };
+
+
+ let data = [{
+    name: 'John',
+    data: [5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2],
+    stack: 'positive'
+  }, {
+    name: 'Joe',
+    data: [5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2],
+    stack: 'positive'
+  }, {
+    name: 'Jane',
+    data: [5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2],
+    stack: 'positive'
+  }, {
+    name: 'Janet',
+    data: [5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2],
+    stack: 'negative'
+  }];
+
+
+
+
+  $(document).ready(function() {
+    // run();
+    run();
+  })
+
+</script>
+</html>
+
+
+

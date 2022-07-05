@@ -1,0 +1,102 @@
+[
+  {
+    "f1_driver": "alex_albon",
+    "sum_negative": "271",
+    "sum_positive": "1624"
+  },
+  {
+    "f1_driver": "carlos_sainz",
+    "sum_negative": "1229",
+    "sum_positive": "4764"
+  },
+  {
+    "f1_driver": "charles_leclerc",
+    "sum_negative": "7387",
+    "sum_positive": "12832"
+  },
+  {
+    "f1_driver": "daniel_ricciardo",
+    "sum_negative": "1955",
+    "sum_positive": "2806"
+  },
+  {
+    "f1_driver": "esteban_ocon",
+    "sum_negative": "150",
+    "sum_positive": "1208"
+  },
+  {
+    "f1_driver": "fernando_alonso",
+    "sum_negative": "748",
+    "sum_positive": "3893"
+  },
+  {
+    "f1_driver": "george_russell",
+    "sum_negative": "3997",
+    "sum_positive": "3125"
+  },
+  {
+    "f1_driver": "kevin_magnussen",
+    "sum_negative": "90",
+    "sum_positive": "402"
+  },
+  {
+    "f1_driver": "lance_stroll",
+    "sum_negative": "407",
+    "sum_positive": "1429"
+  },
+  {
+    "f1_driver": "lando_norris",
+    "sum_negative": "1304",
+    "sum_positive": "898"
+  },
+  {
+    "f1_driver": "lewis_hamilton",
+    "sum_negative": "33102",
+    "sum_positive": "19354"
+  },
+  {
+    "f1_driver": "max_verstappen",
+    "sum_negative": "5842",
+    "sum_positive": "10153"
+  },
+  {
+    "f1_driver": "mick_schumacher",
+    "sum_negative": "423",
+    "sum_positive": "1305"
+  },
+  {
+    "f1_driver": "nicolas_latifi",
+    "sum_negative": "232",
+    "sum_positive": "404"
+  },
+  {
+    "f1_driver": "pierre_gasly",
+    "sum_negative": "5178",
+    "sum_positive": "5723"
+  },
+  {
+    "f1_driver": "sebastian_vettel",
+    "sum_negative": "3304",
+    "sum_positive": "4676"
+  },
+  {
+    "f1_driver": "sergio_perez",
+    "sum_negative": "611",
+    "sum_positive": "949"
+  },
+  {
+    "f1_driver": "valtteri_bottas",
+    "sum_negative": "412",
+    "sum_positive": "1743"
+  },
+  {
+    "f1_driver": "yuki_tsunoda",
+    "sum_negative": "1184",
+    "sum_positive": "718"
+  },
+  {
+    "f1_driver": "zhou_guanyu",
+    "sum_negative": "99",
+    "sum_positive": "693"
+  }
+]
