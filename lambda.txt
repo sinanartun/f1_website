@@ -1,0 +1,47 @@
+import json
+import os
+import mysql.connector
+
+random_driver = 'select text from tweet order by RAND() limit 100;'
+select_driver = "select text from tweet where f1_driver = '%s' order by RAND() limit 100;"
+
+
+def lambda_handler(event, context):
+    driver_name = str(event["queryStringParameters"]['driver_name'])
+    action = str(event["queryStringParameters"]['action'])
+    print(driver_name)
+    print(action)
+    cnx = mysql.connector.connect(host=os.environ['RDS_HOSTNAME'], user=os.environ['RDS_USERNAME'], passwd=os.environ['RDS_PASSWORD'],
+                                  database=os.environ['RDS_DB_NAME'], port=os.environ['RDS_PORT'], charset='utf8')
+    cur = cnx.cursor()
+
+    if action == 'positive_negative':
+        cur.execute("select f1_driver,sum(positive) as sum_positive,sum(negative) as sum_negative from tweet group by f1_driver;")
+        res = cur.fetchall()
+        cnx.close()
+        ret = []
+        for row in res:
+            ret.append({"f1_driver": row[0], "sum_positive": row[1], "sum_negative": row[2]})
+        return {'statusCode': 200, 'body': json.dumps(ret, indent=0, sort_keys=True, default=str)}
+
+    elif action == 'wordcloud':
+
+        if driver_name != 'None':
+
+            cur.execute("select text from tweet where f1_driver = '" + driver_name +"' order by RAND() limit 100;")
+
+        else:
+            cur.execute(random_driver)
+
+    res = cur.fetchall()
+
+    cnx.close()
+
+    all_tweets_str = ""
+    for row in res:
+        all_tweets_str += " " + row[0]
+    # TODO implement
+    return {
+        'statusCode': 200,
+        'body': json.dumps(all_tweets_str, indent=0, sort_keys=True, default=str)
+    }
